@@ -1,0 +1,51 @@
+.p-panel .p-panel-header {
+  border: 1px solid #dee2e6;
+  padding: 1rem;
+  background: #f8f9fa;
+  color: #495057;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+.p-panel-header {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.p-panel .p-panel-header .p-panel-title {
+  font-weight: 600;
+}
+
+.p-panel .p-panel-header .p-panel-header-icon {
+  width: 2rem;
+  height: 2rem;
+  color: #6c757d;
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.p-panel-header-icon,
+.p-panelmenu .p-panelmenu-header-link {
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+.p-panel-header-icon {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.p-panel .p-panel-header .p-panel-header-icon:enabled:hover {
+  color: #495057;
+  border-color: transparent;
+  background: #e9ecef;
+}

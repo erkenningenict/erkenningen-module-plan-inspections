@@ -1,0 +1,61 @@
+.transformText {
+  height: 200px;
+  transform: translate(0px, 70px) rotate(-90deg);
+  width: 40px;
+  text-align: center !important;
+  line-height: 30px;
+  font-size: 10px;
+  z-index: 100;
+  padding: 0 !important;
+  white-space: nowrap;
+  position: relative;
+  background: transparent !important;
+}
+
+.checkboxSection {
+  display: flex;
+  flex: 1;
+  padding: 11px;
+  justify-content: space-around;
+}
+
+.ml-3 {
+  margin-left: 15px;
+}
+
+@media screen and (max-width: 767px) {
+  .datatable-responsive-demo .p-datatable.p-datatable-responsive-demo .p-datatable-thead > tr > th,
+  .datatable-responsive-demo .p-datatable.p-datatable-responsive-demo .p-datatable-tfoot > tr > td {
+    display: none !important;
+  }
+
+  .datatable-responsive-demo .p-datatable.p-datatable-responsive-demo .p-datatable-tbody > tr > td {
+    text-align: left;
+    display: block;
+    width: 100%;
+    float: left;
+    clear: left;
+    border: 0 none;
+  }
+
+  .datatable-responsive-demo
+    .p-datatable.p-datatable-responsive-demo
+    .p-datatable-tbody
+    > tr
+    > td
+    .p-column-title {
+    padding: 0.4rem;
+    min-width: 30%;
+    display: inline-block;
+    margin: -0.4em 1em -0.4em -0.4rem;
+    font-weight: bold;
+  }
+
+  .datatable-responsive-demo
+    .p-datatable.p-datatable-responsive-demo
+    .p-datatable-tbody
+    > tr
+    > td:last-child {
+    border-bottom: 1px solid var(--surface-d);
+  }
+}

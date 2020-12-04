@@ -1,0 +1,8 @@
+.checkboxOverride > label {
+  margin-top: 0 !important;
+  font-weight: normal !important;
+}
+
+.ml-3 {
+  margin-left: 15px;
+}

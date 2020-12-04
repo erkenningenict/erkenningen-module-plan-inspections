@@ -1,0 +1,219 @@
+query getMy {
+  my {
+    Roles
+    Persoon {
+      PersoonID
+    } 
+  }
+}
+
+query getInspectors {
+  getInspectors{
+    id
+   name 
+  }
+}
+
+query getInspectionPlanning($input: GetInspectionPlanningInput!) {
+  getInspectionPlanning(input: $input) {
+    PlanningData {
+      SessieData {
+        SessieID
+        BeginDatum
+        Begintijd
+        BeginDatumTijd
+        InstellingID
+        CursusID
+        VakID
+        InstellingNaam
+        Woonplaats
+        Titel
+        VisitatieID
+        CursusStatus
+        VisitatieStatus
+        DatumVisitatie
+        PersoonID
+        VakType
+      }
+      ShouldBeVisited
+      NrOfDaysSinceLastVisit
+      OrganizerTargetActual
+      SpecialtyTargetActual
+    }
+    InspectionStatisticsOverall {
+      NrOfCourses
+      NrOfVisits
+      AverageRate 
+      AverageScoreAccordingIntention
+      VisitTarget
+      VisitTargetActual
+    }
+    StatisticsPerOrganizer {
+      OrganizerId
+      OrganizerName
+      OrganizerType
+      VisitingData {
+        NrOfCourses
+        NrOfVisits
+        VisitTargetActual
+        VisitTarget
+        AverageRate
+        AverageScoreAccordingIntention
+        LastVisitData {
+          VisitedDate
+          InspectorId
+          ReportGrade
+          ReportCreatedDate
+          AccordingIntention
+        }
+      }
+      SpecialtyStatistics {
+        VakID
+        Title
+        VakType
+        VisitingData {
+          NrOfCourses
+          NrOfVisits
+          VisitTargetActual
+        }
+      }
+    }
+  
+  }
+}
+
+mutation updatePlanning($sessieId: Int!, $inspectorId: Int!, $visitDate: Date!) {
+  updatePlanning(sessieId: $sessieId, inspectorId: $inspectorId, visitDate: $visitDate) {
+    planned
+  }
+}
+
+query getSpecialty($vakId: Int!) {
+  Specialty(vakId: $vakId, fullDetails: true) {
+    VakID
+    Code
+    Titel
+    Doelgroep
+    Doelstelling
+    Inhoud
+    Samenhang
+    Vernieuwend
+    Samenvatting
+    Docenten
+    Promotietekst
+    DigitaalAanbod
+    Themas {
+      Naam
+    }
+    Competenties {
+      Naam
+    }
+    MaximumCursisten
+    Kosten
+    Tijdsduur
+    Praktijk
+    Werkvorm
+    Website
+    EvaluatieWijze
+    DatumAangemaakt
+    IsExamenVak
+    ExamenInstelling {
+      Naam
+      Contactgegevens {
+        DisplayAddress
+        Website
+        TerAttentieVan
+        Telefoon
+        Email
+      }
+    }
+    Vakgroep {
+      Naam
+      Contactgegevens {
+        DisplayAddress
+        Website
+        TerAttentieVan
+        Telefoon
+        Email
+      }
+    }
+    Beoordelingen {
+      PersoonID
+      Rapport
+      RapportCijfer
+      Beoordelaar {
+        FullName
+      }
+    }
+    VakVaardigheden {
+      Omschrijving
+    }
+    VakKennisgebieden {
+      Naam
+    }
+    VakDiscussie {
+      title
+      comments {
+        comment
+        dateOfComment
+        source
+        author
+        sort
+      }
+    }
+  }
+}
+
+query getSessieDetails($sessieId: Int!) {
+  Sessie(sessieId: $sessieId) {
+    SessieID
+    CursusID
+    SessieType
+    DatumBegintijd
+    DatumEindtijd
+    Cursus {
+      Titel
+      VakID
+      CursusCode
+      Promotietekst
+      Vak {
+        Themas {
+          Naam
+        }
+        Competenties {
+          Naam
+        }
+        IsExamenVak
+        Vakgroep {
+          Naam
+          Contactgegevens {
+            DisplayAddress
+            TerAttentieVan
+            Telefoon
+            Email
+          }
+        }
+        ExamenInstelling {
+          Naam
+          Contactgegevens {
+            DisplayAddress
+            TerAttentieVan
+            Telefoon
+            Email
+          }
+        }
+        Beoordelingen {
+          Beoordelaar {
+            FullName
+          }
+        }
+      }
+    }
+    Lokatie {
+      Naam
+      Contactgegevens {
+        DisplayAddress
+      }
+    }
+  }
+}
