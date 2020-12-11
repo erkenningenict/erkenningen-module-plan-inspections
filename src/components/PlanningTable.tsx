@@ -294,6 +294,16 @@ const PlanningTable: React.FC<{
   const planningData = data?.getInspectionPlanning?.PlanningData.slice().sort((a, b) => {
     return a?.SessieData?.BeginDatum > b?.SessieData?.BeginDatum ? 1 : -1;
   });
+  let filteredData = planningData?.filter(
+    (d) =>
+      (d.SessieData.VisitatieID !== null && viewOptions.showOnlyVisited === true) ||
+      !viewOptions.showOnlyVisited,
+  );
+  if (viewOptions.showPlannedVisitsOfInspector && isInspector) {
+    filteredData = filteredData?.filter(
+      (d) => d.SessieData.VisitatieID !== null && d.SessieData.PersoonID === personId,
+    );
+  }
 
   return (
     <>
@@ -350,21 +360,7 @@ const PlanningTable: React.FC<{
           <DataTable
             className="p-datatable-responsive-demo"
             ref={(el) => (dt = el)}
-            value={planningData?.filter((d) => {
-              if (
-                (d.SessieData.VisitatieID !== null && viewOptions.showOnlyVisited === true) ||
-                viewOptions.showOnlyVisited === false
-              ) {
-                return true;
-              }
-              if (d.SessieData.VisitatieID !== null && d.SessieData.PersoonID === personId) {
-                return true;
-              }
-              if (viewOptions.showPlannedVisitsOfInspector === true && isInspector) {
-                return d.SessieData.PersoonID === personId;
-              }
-              return false;
-            })}
+            value={filteredData}
             rowHover
             dataKey={'SessieData.SessieID'}
             emptyMessage="Geen gegevens gevonden."
