@@ -192,6 +192,7 @@ const SessieDetails: React.FC<{ sessieId: number | null; onHide: () => void }> =
     <Dialog
       key="dialog"
       id="dialog"
+      appendTo={'self'}
       closeOnEscape={true}
       header={`Details over cursus`}
       visible={props.sessieId !== null}

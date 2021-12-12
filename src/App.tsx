@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Switch, Route, HashRouter, Link } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { FormatErrorParams } from 'yup';
 import * as yup from 'yup';
 
@@ -40,7 +40,7 @@ yup.setLocale({
   },
 });
 
-const App: React.FC<{}> = () => {
+const App: React.FC = () => {
   const auth = useAuth();
 
   if (auth.loading) {
@@ -65,29 +65,26 @@ const App: React.FC<{}> = () => {
   }
 
   return (
-    <HashRouter>
-      <UserContext.Provider value={auth.my}>
-        <ThemeContext.Provider value={{ mode: 'admin' }}>
-          <GrowlProvider>
-            <ThemeKC>
-              <Switch>
-                <Route exact path="/" component={PlanningSelection} />
-                {/* <Route
-                  exact
-                  path="/examen-resultaten-registreren/:id"
-                  component={ResultRegistration}
-                />
-                <Route exact path="/gereed/:id" component={RegistrationComplete} /> */}
-                <Route>
-                  <p>Pagina niet gevonden (probeer /) </p>
-                  <Link to="/">Ga naar het begin</Link>
-                </Route>
-              </Switch>
-            </ThemeKC>
-          </GrowlProvider>
-        </ThemeContext.Provider>
-      </UserContext.Provider>
-    </HashRouter>
+    <UserContext.Provider value={auth.my}>
+      <ThemeContext.Provider value={{ mode: 'admin' }}>
+        <GrowlProvider>
+          <ThemeKC>
+            <Routes>
+              <Route path="/" element={<PlanningSelection />} />
+              <Route
+                path="*"
+                element={
+                  <>
+                    <p>Pagina niet gevonden (probeer /) </p>
+                    <Link to="/">Ga naar het begin</Link>
+                  </>
+                }
+              ></Route>
+            </Routes>
+          </ThemeKC>
+        </GrowlProvider>
+      </ThemeContext.Provider>
+    </UserContext.Provider>
   );
 };
 

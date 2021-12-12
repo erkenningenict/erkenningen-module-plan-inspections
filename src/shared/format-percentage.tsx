@@ -2,9 +2,9 @@ import React from 'react';
 
 export const formatPercentage = (
   value: number,
-  target: number = 0.1,
-  margin: number = 0.05,
-  onlyPercentage: boolean = false,
+  target = 0.1,
+  margin = 0.05,
+  onlyPercentage = false,
 ) => {
   let className = 'bg-danger';
   // below val
@@ -23,7 +23,10 @@ export const formatPercentage = (
   }
   return (
     <>
-      <div className={`text-right ${!onlyPercentage ? className : ''}`}>
+      <div
+        className={`text-right ${!onlyPercentage ? className : ''}`}
+        style={{ padding: '10px 3px' }}
+      >
         {Number(value).toLocaleString(undefined, { style: 'percent', minimumFractionDigits: 1 })}
       </div>
     </>

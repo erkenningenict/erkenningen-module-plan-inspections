@@ -38,8 +38,8 @@ const PlanningTable: React.FC<{
   const [organizerFilterValue, setOrganizerFilterValue] = useState<string | undefined>(undefined);
   const [vakIdDetails, setVakIdDetails] = useState<number | null>(null);
   const [sessieIdDetails, setSessieIdDetails] = useState<number | null>(null);
-  let isRector = hasRole(Roles.Rector, my?.Roles);
-  let isInspector = hasRole(Roles.Inspecteur, my?.Roles);
+  const isRector = hasRole(Roles.Rector, my?.Roles);
+  const isInspector = hasRole(Roles.Inspecteur, my?.Roles);
   const [viewOptions, setViewOptions] = useState<{
     showOnlyVisited: boolean;
     showPlannedVisitsOfInspector: boolean;
@@ -115,7 +115,7 @@ const PlanningTable: React.FC<{
     return <Spinner></Spinner>;
   }
 
-  let vakken: { value: number; label: string }[] = [];
+  const vakken: { value: number; label: string }[] = [];
   let organizers: { value: number; label: string }[] = [];
   data?.getInspectionPlanning?.PlanningData.map((d) => {
     const specialty: { label: string; value: number } = {
@@ -198,7 +198,7 @@ const PlanningTable: React.FC<{
         <Button
           icon="far fa-calendar-plus"
           tooltip={`Inplannen bij ${inspectorName}`}
-          buttonType="button"
+          type="button"
           onClick={() =>
             updatePlanningItem(row.SessieData.SessieID, inspectorId, row.SessieData.BeginDatum)
           }
@@ -268,9 +268,9 @@ const PlanningTable: React.FC<{
               ? `Bekijk verslag, opgesteld door ${inspectorName}`
               : `Klik om verslag te maken (ingepland aan ${inspectorName}`
           }`}
-          buttonType="button"
-          type="info"
-          onClick={(e) =>
+          type="button"
+          buttonType="info"
+          onClick={() =>
             window.open(
               `/Default.aspx?tabid=127&SessieID=${row.SessieData.SessieID}&Mode=Wijzigen`,
               '_blank',
@@ -308,7 +308,7 @@ const PlanningTable: React.FC<{
   return (
     <>
       <Panel header="Planning bekijken en bezoek plannen" toggleable collapsed={false}>
-        <div className="form form-horizontal">
+        <div id="attachDialog" className="form form-horizontal">
           <div className="form-group col-md-4">
             {hasRole(Roles.Inspecteur, my?.Roles) && (
               <div className="">
@@ -348,8 +348,8 @@ const PlanningTable: React.FC<{
           )}
 
           <Button
-            type="primary"
-            buttonType="button"
+            buttonType="primary"
+            type="button"
             style={{ marginBottom: '5px' }}
             label="Verversen"
             icon="pi pi-refresh"
@@ -381,7 +381,7 @@ const PlanningTable: React.FC<{
               body={(row) => (
                 <>
                   <Button
-                    buttonType="button"
+                    type="button"
                     style={{ marginRight: '5px', marginBottom: '5px' }}
                     label=""
                     icon="fas fa-file-alt"
@@ -420,44 +420,99 @@ const PlanningTable: React.FC<{
             <Column
               field="ShouldBeVisited"
               body={(row) => (row.ShouldBeVisited ? 'Ja' : 'Nee')}
-              header={'Vis-it-eren'}
+              header={() => (
+                <>
+                  <Tooltip target=".visiteren">Moet bezocht/geïnspecteerd worden</Tooltip>
+                  <div style={{ width: '20px' }} className="visiteren">
+                    Visiteren
+                  </div>
+                </>
+              )}
               sortable={true}
-              style={{ width: '50px' }}
+              style={{ padding: '2px' }}
+              headerStyle={{
+                writingMode: 'vertical-lr',
+                transform: 'rotate(-180deg)',
+              }}
             />
             <Column
               field="OrganizerTargetActual"
               body={(row) => formatPercentage(row.OrganizerTargetActual)}
-              header={'Org. doel'}
+              header={() => (
+                <>
+                  <Tooltip target=".organisationGoal">Organisatie doel</Tooltip>
+                  <div style={{ width: '20px' }} className="organisationGoal">
+                    Organisatie doel
+                  </div>
+                </>
+              )}
               sortable={true}
-              style={{ width: '50px', padding: '2px' }}
+              style={{ width: '40px', padding: '0' }}
+              headerStyle={{
+                width: '50px',
+                writingMode: 'vertical-lr',
+                transform: 'rotate(-180deg)',
+              }}
             />
             <Column
               field="SpecialtyTargetActual"
               body={(row) => formatPercentage(row.SpecialtyTargetActual)}
-              header={'Aanb. doel'}
+              header={() => (
+                <>
+                  <Tooltip target=".goal">Aanbod doel</Tooltip>
+                  <div style={{ width: '20px' }} className="goal">
+                    Organisatie doel
+                  </div>
+                </>
+              )}
               sortable={true}
-              style={{ width: '50px', padding: '2px' }}
+              style={{ width: '40px', padding: '0' }}
+              headerStyle={{
+                writingMode: 'vertical-lr',
+                transform: 'rotate(-180deg)',
+              }}
             />
             <Column
               field="SessieData.BeginDatumTijd"
               body={(row) => (
-                <>
-                  <strong>
-                    {format(new Date(row.SessieData.BeginDatumTijd), 'EEEEEE d', { locale: nl })}
-                  </strong>{' '}
-                  {format(new Date(row.SessieData.BeginDatumTijd), 'HH:mm', { locale: nl })}
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+                    flexDirection: 'column',
+                  }}
+                >
                   <div>
+                    <strong>
+                      {format(new Date(row.SessieData.BeginDatumTijd), 'EEEEEE d', { locale: nl })}
+                    </strong>
+                  </div>
+                  <div>
+                    {format(new Date(row.SessieData.BeginDatumTijd), 'HH:mm', { locale: nl })}
+                  </div>
+                  <div style={{ textAlign: 'center', marginTop: '4px' }}>
                     <Button
+                      type="button"
                       onClick={() => showSessieDetails(row.SessieData.SessieID)}
                       icon="far fa-file-alt"
                       tooltip="Bekijk sessie details"
                     ></Button>
                   </div>
+                </div>
+              )}
+              header={() => (
+                <>
+                  <Tooltip target=".date">Datum</Tooltip>
+                  <div className="date">Datum</div>
                 </>
               )}
-              header={'Datum'}
               sortable={true}
-              style={{ width: '80px' }}
+              style={{ width: '40px', padding: '4px' }}
+              headerStyle={{
+                writingMode: 'vertical-lr',
+                transform: 'rotate(-180deg)',
+              }}
             />
             {inspectors?.getInspectors
               ?.filter((i) => {
@@ -471,6 +526,7 @@ const PlanningTable: React.FC<{
                   <Column
                     key={i.id}
                     field=""
+                    style={{ width: '30px', padding: '2px' }}
                     body={(row) => (
                       <>
                         {showReportButton(row, i.id, i.name)}
@@ -486,14 +542,13 @@ const PlanningTable: React.FC<{
                         </div>
                       </>
                     }
-                    filter
-                    filterElement={
-                      <div>
-                        {planningData?.filter((p) => p.SessieData.PersoonID === i.id).length}
-                      </div>
-                    }
+                    // filter
+                    // filterElement={
+                    //   <div>
+                    //     {planningData?.filter((p) => p.SessieData.PersoonID === i.id).length}
+                    //   </div>
+                    // }
                     headerClassName="transformText"
-                    bodyStyle={{ padding: 0 }}
                   />
                 );
               })}
@@ -502,7 +557,7 @@ const PlanningTable: React.FC<{
       </Panel>
       <StatsOverall data={data?.getInspectionPlanning?.InspectionStatisticsOverall}></StatsOverall>
       <StatsPerOrganizer
-        dataPerOrganizer={data?.getInspectionPlanning?.StatisticsPerOrganizer}
+        dataPerOrganizer={data?.getInspectionPlanning?.StatisticsPerOrganizer as any}
       ></StatsPerOrganizer>
       <SpecialtyDetails
         vakId={vakIdDetails}
