@@ -6,7 +6,7 @@ import * as yup from 'yup';
 
 import { Alert } from '@erkenningen/ui/components/alert';
 import { GrowlProvider } from '@erkenningen/ui/components/growl';
-import { ThemeKC } from '@erkenningen/ui/layout/theme';
+import { ThemeBureauErkenningen } from '@erkenningen/ui/layout/theme';
 import { ThemeContext } from '@erkenningen/ui/layout/theme';
 
 import { UserContext, useAuth, Roles, hasOneOfRoles } from './shared/Auth';
@@ -68,7 +68,7 @@ const App: React.FC = () => {
     <UserContext.Provider value={auth.my}>
       <ThemeContext.Provider value={{ mode: 'admin' }}>
         <GrowlProvider>
-          <ThemeKC>
+          <ThemeBureauErkenningen>
             <Routes>
               <Route path="/" element={<PlanningSelection />} />
               <Route
@@ -81,7 +81,7 @@ const App: React.FC = () => {
                 }
               ></Route>
             </Routes>
-          </ThemeKC>
+          </ThemeBureauErkenningen>
         </GrowlProvider>
       </ThemeContext.Provider>
     </UserContext.Provider>
