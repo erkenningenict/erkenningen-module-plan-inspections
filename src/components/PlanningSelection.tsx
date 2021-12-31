@@ -8,7 +8,7 @@ import { Checkbox } from '@erkenningen/ui/components/checkbox';
 import './PlanningSelection.css';
 import PlanningContainer from '../container/PlanningContainer';
 
-const PlanningSelection: React.FC<{}> = () => {
+const PlanningSelection: React.FC = () => {
   const [currentDate, setCurrentDate] = useState<{
     startDate: number;
     label: string;

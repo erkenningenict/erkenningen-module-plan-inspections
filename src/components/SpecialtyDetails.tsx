@@ -324,6 +324,7 @@ const SpecialtyDetails: React.FC<{ vakId: number | null; onHide: () => void }> =
     <Dialog
       key="dialog"
       id="dialog"
+      appendTo={'self'}
       maximizable
       closeOnEscape={true}
       header={`Details van aanbod ${props.vakId}`}
