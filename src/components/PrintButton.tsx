@@ -21,7 +21,7 @@ const PrintButton: React.FC<{ element: string }> = (props) => {
   };
   return (
     <div className="hidden-xs hidden-sm">
-      <Button icon="fas fa-print" onClick={() => print()} label="Printen"></Button>
+      <Button icon="fas fa-print" type="button" onClick={() => print()} label="Printen"></Button>
     </div>
   );
 };

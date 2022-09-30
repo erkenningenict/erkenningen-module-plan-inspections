@@ -174,6 +174,31 @@ const SpecialtyDetails: React.FC<{ vakId: number | null; onHide: () => void }> =
                   <div dangerouslySetInnerHTML={{ __html: v.Werkvorm }}></div>
                 </td>
               </tr>
+              {v.Schema && (
+                <tr>
+                  <td colSpan={2} style={{ padding: 0 }}>
+                    <h4 style={{ margin: '8px' }}>Schema:</h4>
+                    <table className="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Tijd</th>
+                          <th>Docent</th>
+                          <th>Omschrijving</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {v.Schema.map((r, i) => (
+                          <tr key={i}>
+                            <td>{r.tijd}</td>
+                            <td>{r.docent}</td>
+                            <td>{r.omschrijving}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              )}
               <tr>
                 <td>
                   <strong>Evaluatiewijze</strong>

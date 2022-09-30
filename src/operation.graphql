@@ -3,14 +3,14 @@ query getMy {
     Roles
     Persoon {
       PersoonID
-    } 
+    }
   }
 }
 
 query getInspectors {
-  getInspectors{
+  getInspectors {
     id
-   name 
+    name
   }
 }
 
@@ -43,7 +43,7 @@ query getInspectionPlanning($input: GetInspectionPlanningInput!) {
     InspectionStatisticsOverall {
       NrOfCourses
       NrOfVisits
-      AverageRate 
+      AverageRate
       AverageScoreAccordingIntention
       VisitTarget
       VisitTargetActual
@@ -78,7 +78,6 @@ query getInspectionPlanning($input: GetInspectionPlanningInput!) {
         }
       }
     }
-  
   }
 }
 
@@ -113,6 +112,11 @@ query getSpecialty($vakId: Int!) {
     Tijdsduur
     Praktijk
     Werkvorm
+    Schema {
+      tijd
+      docent
+      omschrijving
+    }
     Website
     EvaluatieWijze
     DatumAangemaakt
