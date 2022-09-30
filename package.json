@@ -14,7 +14,7 @@
   "dependencies": {
     "@apollo/client": "^3.4.10",
     "@erkenningen/config": "^1.0.7",
-    "@erkenningen/ui": "^7.0.0",
+    "@erkenningen/ui": "^7.0.2",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@graphql-codegen/cli": "^2.1.1",
     "@graphql-codegen/introspection": "^2.1.0",
