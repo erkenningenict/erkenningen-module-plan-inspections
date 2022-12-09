@@ -1838,6 +1838,7 @@ export type Vak = {
   Afkorting?: Maybe<Scalars['String']>;
   BeoordelaarNaam?: Maybe<Scalars['String']>;
   Beoordelingen?: Maybe<Array<Maybe<Beoordeling>>>;
+  Bijlagen?: Maybe<Array<Maybe<VakBijlage>>>;
   Code?: Maybe<Scalars['String']>;
   CompetentieID?: Maybe<Scalars['Int']>;
   CompetentieNaam?: Maybe<Scalars['String']>;
@@ -1879,6 +1880,12 @@ export type Vak = {
   Vernieuwend?: Maybe<Scalars['String']>;
   Website?: Maybe<Scalars['String']>;
   Werkvorm?: Maybe<Scalars['String']>;
+};
+
+export type VakBijlage = {
+  __typename?: 'VakBijlage';
+  omschrijving?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 export type VakDiscussie = {
@@ -2549,7 +2556,7 @@ export type GetSpecialtyQueryVariables = Exact<{
 }>;
 
 
-export type GetSpecialtyQuery = { __typename?: 'Query', Specialty?: { __typename?: 'Vak', VakID: number, Code?: string, Titel?: string, Doelgroep?: string, Doelstelling?: string, Inhoud?: string, Samenhang?: string, Vernieuwend?: string, Samenvatting?: string, Docenten?: string, Promotietekst?: string, DigitaalAanbod?: boolean, MaximumCursisten?: number, Kosten?: number, Tijdsduur?: string, Praktijk?: string, Werkvorm?: string, Website?: string, EvaluatieWijze?: string, DatumAangemaakt?: any, IsExamenVak?: boolean, Themas?: Array<{ __typename?: 'Thema', Naam: string }>, Competenties?: Array<{ __typename?: 'Competentie', Naam: string }>, Schema?: Array<{ __typename?: 'SchemaRegel', tijd?: string, docent?: string, omschrijving?: string }>, ExamenInstelling?: { __typename?: 'ExamenInstelling', Naam: string, Contactgegevens: { __typename?: 'Contactgegevens', DisplayAddress?: string, Website?: string, TerAttentieVan?: string, Telefoon?: string, Email?: string } }, Vakgroep?: { __typename?: 'Vakgroep', Naam: string, Contactgegevens: { __typename?: 'Contactgegevens', DisplayAddress?: string, Website?: string, TerAttentieVan?: string, Telefoon?: string, Email?: string } }, Beoordelingen?: Array<{ __typename?: 'Beoordeling', PersoonID?: number, Rapport?: string, RapportCijfer?: number, Beoordelaar?: { __typename?: 'Persoon', FullName?: string } }>, VakVaardigheden?: Array<{ __typename?: 'Vaardigheid', Omschrijving: string }>, VakKennisgebieden?: Array<{ __typename?: 'Kennisgebied', Naam: string }>, VakDiscussie?: Array<{ __typename?: 'VakDiscussie', title?: string, comments?: Array<{ __typename?: 'Comment', comment?: string, dateOfComment?: any, source?: string, author?: string, sort?: number }> }> } };
+export type GetSpecialtyQuery = { __typename?: 'Query', Specialty?: { __typename?: 'Vak', VakID: number, Code?: string, Titel?: string, Doelgroep?: string, Doelstelling?: string, Inhoud?: string, Samenhang?: string, Vernieuwend?: string, Samenvatting?: string, Docenten?: string, Promotietekst?: string, DigitaalAanbod?: boolean, MaximumCursisten?: number, Kosten?: number, Tijdsduur?: string, Praktijk?: string, Werkvorm?: string, Website?: string, EvaluatieWijze?: string, DatumAangemaakt?: any, IsExamenVak?: boolean, Themas?: Array<{ __typename?: 'Thema', Naam: string }>, Competenties?: Array<{ __typename?: 'Competentie', Naam: string }>, Schema?: Array<{ __typename?: 'SchemaRegel', tijd?: string, docent?: string, omschrijving?: string }>, ExamenInstelling?: { __typename?: 'ExamenInstelling', Naam: string, Contactgegevens: { __typename?: 'Contactgegevens', DisplayAddress?: string, Website?: string, TerAttentieVan?: string, Telefoon?: string, Email?: string } }, Vakgroep?: { __typename?: 'Vakgroep', Naam: string, Contactgegevens: { __typename?: 'Contactgegevens', DisplayAddress?: string, Website?: string, TerAttentieVan?: string, Telefoon?: string, Email?: string } }, Beoordelingen?: Array<{ __typename?: 'Beoordeling', PersoonID?: number, Rapport?: string, RapportCijfer?: number, Beoordelaar?: { __typename?: 'Persoon', FullName?: string } }>, VakVaardigheden?: Array<{ __typename?: 'Vaardigheid', Omschrijving: string }>, VakKennisgebieden?: Array<{ __typename?: 'Kennisgebied', Naam: string }>, VakDiscussie?: Array<{ __typename?: 'VakDiscussie', title?: string, comments?: Array<{ __typename?: 'Comment', comment?: string, dateOfComment?: any, source?: string, author?: string, sort?: number }> }>, Bijlagen?: Array<{ __typename?: 'VakBijlage', omschrijving?: string, url?: string }> } };
 
 export type GetSessieDetailsQueryVariables = Exact<{
   sessieId: Scalars['Int'];
@@ -2844,6 +2851,10 @@ export const GetSpecialtyDocument = gql`
         author
         sort
       }
+    }
+    Bijlagen {
+      omschrijving
+      url
     }
   }
 }

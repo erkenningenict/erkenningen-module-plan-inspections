@@ -165,6 +165,10 @@ query getSpecialty($vakId: Int!) {
         sort
       }
     }
+    Bijlagen {
+      omschrijving
+      url
+    }
   }
 }
 

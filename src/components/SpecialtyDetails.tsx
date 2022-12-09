@@ -174,7 +174,7 @@ const SpecialtyDetails: React.FC<{ vakId: number | null; onHide: () => void }> =
                   <div dangerouslySetInnerHTML={{ __html: v.Werkvorm }}></div>
                 </td>
               </tr>
-              {v.Schema && (
+              {v.Schema && v.Schema.length > 0 && (
                 <tr>
                   <td colSpan={2} style={{ padding: 0 }}>
                     <h4 style={{ margin: '8px' }}>Schema:</h4>
@@ -251,7 +251,26 @@ const SpecialtyDetails: React.FC<{ vakId: number | null; onHide: () => void }> =
             </tbody>
           </table>
         </Panel>
-        <br />
+
+        {v.Bijlagen && v.Bijlagen.length > 0 && (
+          <>
+            <Panel title={'Bijlagen'} doNotIncludeBody={true}>
+              <table className="table table-striped">
+                <tbody>
+                  {v.Bijlagen.map((b) => (
+                    <tr key={b.url}>
+                      <td>
+                        <a href={b.url} target="_blank" rel="noreferrer noopener">
+                          {b.omschrijving}
+                        </a>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Panel>
+          </>
+        )}
         <Panel title={'Aanbieder gegevens'} doNotIncludeBody={true}>
           <table className="table table-striped">
             <tbody>
