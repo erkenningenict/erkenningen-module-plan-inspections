@@ -5,8 +5,8 @@ import { Panel } from '@erkenningen/ui/layout/panel';
 import { useGrowlContext } from '@erkenningen/ui/components/growl';
 import { Spinner } from '@erkenningen/ui/components/spinner';
 import PrintButton from './PrintButton';
-import format from 'date-fns/format';
-import nl from 'date-fns/locale/nl';
+import { format } from 'date-fns';
+import { nl } from 'date-fns/locale/nl';
 
 const SessieDetails: React.FC<{ sessieId: number | null; onHide: () => void }> = (props) => {
   const { showGrowl } = useGrowlContext();
@@ -205,7 +205,7 @@ const SessieDetails: React.FC<{ sessieId: number | null; onHide: () => void }> =
       onHide={() => props.onHide()}
       footer={footer('printAreaSessionDetails')}
     >
-      {loading && <Spinner>Cursus details worden geladen...</Spinner>}
+      {loading && <Spinner text="Cursus details worden geladen..."></Spinner>}
       {!loading && <div id="printAreaSessionDetails">{sessieDetails(data?.Sessie)}</div>}
     </Dialog>
   );

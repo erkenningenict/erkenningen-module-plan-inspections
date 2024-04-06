@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { Routes, Route, Link } from 'react-router-dom';
-import { FormatErrorParams } from 'yup';
-import * as yup from 'yup';
 
 import { Alert } from '@erkenningen/ui/components/alert';
 import { GrowlProvider } from '@erkenningen/ui/components/growl';
@@ -11,34 +9,7 @@ import { ThemeContext } from '@erkenningen/ui/layout/theme';
 
 import { UserContext, useAuth, Roles, hasOneOfRoles } from './shared/Auth';
 import PlanningSelection from './components/PlanningSelection';
-import './App.css';
-
-// @TODO Move to lib?
-yup.setLocale({
-  mixed: {
-    default: 'Ongeldig',
-    required: 'Verplicht',
-    notType: (params: FormatErrorParams) => {
-      if (!params.value) {
-        return 'Verplicht';
-      }
-
-      switch (params.type) {
-        case 'number':
-          return 'Moet een getal zijn';
-        case 'date':
-          return 'Verplicht';
-        default:
-          return 'Ongeldige waarde';
-      }
-    },
-  },
-  string: {
-    email: 'Ongeldig e-mailadres',
-    min: 'Minimaal ${min} karakters', // eslint-disable-line no-template-curly-in-string
-    max: 'Maximaal ${max} karakters', // eslint-disable-line no-template-curly-in-string
-  },
-});
+import './App.css?url';
 
 const App: React.FC = () => {
   const auth = useAuth();

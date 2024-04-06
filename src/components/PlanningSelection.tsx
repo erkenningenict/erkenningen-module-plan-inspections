@@ -5,7 +5,7 @@ import { Panel, PanelBody } from '@erkenningen/ui/layout/panel';
 import { nl } from 'date-fns/locale';
 import { Checkbox } from '@erkenningen/ui/components/checkbox';
 
-import './PlanningSelection.css';
+import './PlanningSelection.css?url';
 import PlanningContainer from '../container/PlanningContainer';
 
 const PlanningSelection: React.FC = () => {

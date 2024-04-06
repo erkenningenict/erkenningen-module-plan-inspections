@@ -44,11 +44,13 @@ export const useAuth = (): {
   return { loading, error: hasError, authenticated, my: data?.my };
 };
 
-export const hasRole = (role: Roles, currentRoles?: string[]): boolean =>
+export const hasRole = (role: Roles, currentRoles?: (string | undefined)[] | undefined): boolean =>
   currentRoles ? currentRoles.includes(role) : false;
 
-export const hasOneOfRoles = (roles: Roles[], currentRoles?: string | string[]): boolean =>
-  currentRoles ? roles.some((role: Roles) => currentRoles.includes(role)) : false;
+export const hasOneOfRoles = (
+  roles: Roles[],
+  currentRoles?: (string | undefined)[] | undefined,
+): boolean => (currentRoles ? roles.some((role: Roles) => currentRoles.includes(role)) : false);
 
 export const hasAllRoles = (roles: Roles[], currentRoles?: string[]): boolean =>
   currentRoles ? roles.every((role: Roles) => currentRoles.includes(role)) : false;
