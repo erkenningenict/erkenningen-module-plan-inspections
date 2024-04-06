@@ -3,7 +3,7 @@ for = "/*"
 [headers.values]
 ACCESS-CONTROL-ALLOW-ORIGIN = "*"
 [build]
-publish = "build"
+publish = "dist"
 command = "npm run build:netlify"
 [context.production.environment]
 NODE_ENV = "production"
