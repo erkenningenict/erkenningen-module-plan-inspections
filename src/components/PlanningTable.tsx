@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DataTable } from 'primereact/datatable';
+import { DataTable, type DataTableStateEvent } from 'primereact/datatable';
 import { Tooltip } from 'primereact/tooltip';
 import { Panel } from 'primereact/panel';
 import { Column } from 'primereact/column';
@@ -10,7 +10,7 @@ import {
   useUpdatePlanningMutation,
 } from '../generated/graphql';
 import { Button } from '@erkenningen/ui/components/button';
-import format from 'date-fns/format';
+import { format } from 'date-fns';
 import { nl } from 'date-fns/locale';
 import { Select } from '@erkenningen/ui/components/select';
 import './PlanningTable.css';
@@ -316,7 +316,7 @@ const PlanningTable: React.FC<{
                   label="Toon alle inspecteurs"
                   checked={viewOptions.showPlanningOfAllInspectors || false}
                   onChange={(e) => {
-                    setViewOptions({ ...viewOptions, showPlanningOfAllInspectors: e.checked });
+                    setViewOptions({ ...viewOptions, showPlanningOfAllInspectors: !!e.checked });
                   }}
                 ></Checkbox>
               </div>
@@ -329,7 +329,7 @@ const PlanningTable: React.FC<{
               onChange={(e) => {
                 setViewOptions({
                   ...viewOptions,
-                  showOnlyVisited: e.checked,
+                  showOnlyVisited: !!e.checked,
                   showPlanningOfAllInspectors: true,
                 });
               }}
@@ -341,7 +341,7 @@ const PlanningTable: React.FC<{
                 label="Toon mijn planning"
                 checked={viewOptions.showPlannedVisitsOfInspector}
                 onChange={(e) => {
-                  setViewOptions({ ...viewOptions, showPlannedVisitsOfInspector: e.checked });
+                  setViewOptions({ ...viewOptions, showPlannedVisitsOfInspector: !!e.checked });
                 }}
               ></Checkbox>
             </div>
@@ -356,9 +356,9 @@ const PlanningTable: React.FC<{
             onClick={() => refetch()}
           ></Button>
         </div>
-        <div className="row datatable-responsive-demo">
+        <div className="row datatable-responsive" style={{ clear: 'both' }}>
           <DataTable
-            className="p-datatable-responsive-demo"
+            className="p-datatable-responsive"
             ref={(el) => (dt = el)}
             value={filteredData}
             rowHover
@@ -367,8 +367,8 @@ const PlanningTable: React.FC<{
             paginator
             rows={page.rows}
             first={page.first}
-            onPage={(e: { first: number; rows: number; page: number; pageCount: number }) => {
-              setPage({ page: e.page, rows: e.rows, first: e.first });
+            onPage={(e: DataTableStateEvent) => {
+              setPage({ page: e.page ?? 0, rows: e.rows, first: e.first });
             }}
             rowsPerPageOptions={[10, 25, 50, 100]}
             currentPageReportTemplate="{first} tot {last} van {totalRecords}"
@@ -485,7 +485,9 @@ const PlanningTable: React.FC<{
                 >
                   <div>
                     <strong>
-                      {format(new Date(row.SessieData.BeginDatumTijd), 'EEEEEE d', { locale: nl })}
+                      {format(new Date(row.SessieData.BeginDatumTijd), 'EEEEEE d', {
+                        locale: nl,
+                      })}
                     </strong>
                   </div>
                   <div>

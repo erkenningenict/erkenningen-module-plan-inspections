@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DataTable } from 'primereact/datatable';
+import { DataTable, type DataTableStateEvent } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { formatPercentage } from '../shared/format-percentage';
 import { StatisticsPerOrganizer } from '../generated/graphql';
@@ -22,8 +22,8 @@ const StatsPerSpecialty: React.FC<{
         paginator
         rows={page.rows}
         first={page.first}
-        onPage={(e: { first: number; rows: number; page: number; pageCount: number }) => {
-          setPage({ page: e.page, rows: e.rows, first: e.first });
+        onPage={(e: DataTableStateEvent) => {
+          setPage({ page: e.page || 0, rows: e.rows, first: e.first });
         }}
         rowsPerPageOptions={[10, 25, 50, 100]}
         currentPageReportTemplate="{first} tot {last} van {totalRecords}"

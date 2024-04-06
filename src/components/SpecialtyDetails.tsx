@@ -380,7 +380,7 @@ const SpecialtyDetails: React.FC<{ vakId: number | null; onHide: () => void }> =
       onHide={() => props.onHide()}
       footer={footer('printAreaSpecialtyDetails')}
     >
-      {loading && <Spinner>Vak details worden geladen...</Spinner>}
+      {loading && <Spinner text="Vak details worden geladen..."></Spinner>}
       {!loading && (
         <div id="printAreaSpecialtyDetails">
           {vakData(data?.Specialty)}
